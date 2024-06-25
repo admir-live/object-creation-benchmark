@@ -1,0 +1,6 @@
+@corr2_notification_HostAddress = http://localhost:5224
+
+GET {{corr2_notification_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
