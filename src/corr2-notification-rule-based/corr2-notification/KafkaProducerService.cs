@@ -6,6 +6,7 @@ public class KafkaProducerService(IProducer<Null, string> producer) : Background
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        await Task.Delay(2000, stoppingToken);
         while (!stoppingToken.IsCancellationRequested)
         {
             var message = new Message<Null, string> { Value = "Hello, Stanić! " + Guid.NewGuid().ToString("N") };

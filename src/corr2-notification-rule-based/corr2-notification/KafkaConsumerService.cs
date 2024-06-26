@@ -8,6 +8,8 @@ public class KafkaConsumerService(IConsumer<Null, string> consumer, IHubContext<
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        await Task.Delay(2000, stoppingToken);
+        
         consumer.Subscribe("notification-topic");
 
         while (!stoppingToken.IsCancellationRequested)
