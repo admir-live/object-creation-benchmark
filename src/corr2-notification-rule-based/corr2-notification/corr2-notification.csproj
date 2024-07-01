@@ -4,14 +4,25 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>corr2_notification</RootNamespace>
+    <RootNamespace>Corr2.Notification.PoC</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Confluent.Kafka" Version="2.4.0"/>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.6"/>
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.1.0"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.6"/>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+    <PackageReference Include="ncalc" Version="1.3.8"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="client\.idea\.idea.corr2-notification-rule-based-engine-poc.dir\.idea\.gitignore" />
+    <Content Include="client\.idea\.idea.corr2-notification-rule-based-engine-poc.dir\.idea\encodings.xml" />
+    <Content Include="client\.idea\.idea.corr2-notification-rule-based-engine-poc.dir\.idea\indexLayout.xml" />
+    <Content Include="client\.idea\.idea.corr2-notification-rule-based-engine-poc.dir\.idea\projectSettingsUpdater.xml" />
+    <Content Include="client\.idea\.idea.corr2-notification-rule-based-engine-poc.dir\.idea\vcs.xml" />
+    <Content Include="client\.idea\.idea.corr2-notification-rule-based-engine-poc.dir\.idea\workspace.xml" />
   </ItemGroup>
 
 </Project>

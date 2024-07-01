@@ -1,6 +1,9 @@
 using Confluent.Kafka;
-using corr2_notification;
-using corr2_notification.Hubs;
+using Corr2.Notification.PoC;
+using Corr2.Notification.PoC.Infrastructure;
+using Corr2.Notification.PoC.Messaging.Kafka.Consumers;
+using Corr2.Notification.PoC.Messaging.Kafka.Producers;
+using Corr2.Notification.PoC.Messaging.SignalR.Hubs;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,15 +22,17 @@ builder.Services.AddCors(options =>
 builder.Services.AddSignalR();
 builder.Services.AddControllers();
 
+builder.Services.AddDbContext<NotificationContext>(ServiceLifetime.Singleton);
+
 builder.Services.AddSingleton<IProducer<Null, string>>(provider =>
 {
-    var config = new ProducerConfig { BootstrapServers = "localhost:9092" };
+    var config = new ProducerConfig { BootstrapServers = Constants.Kafka.BootstrapServers };
     return new ProducerBuilder<Null, string>(config).Build();
 });
 
 builder.Services.AddSingleton<IConsumer<Null, string>>(provider =>
 {
-    var config = new ConsumerConfig { GroupId = "notification-consumer-group", BootstrapServers = "localhost:9092", AutoOffsetReset = AutoOffsetReset.Earliest };
+    var config = new ConsumerConfig { GroupId = Constants.Kafka.GroupId, BootstrapServers = Constants.Kafka.BootstrapServers, AutoOffsetReset = AutoOffsetReset.Earliest };
     return new ConsumerBuilder<Null, string>(config).Build();
 });
 
@@ -59,9 +64,10 @@ app.UseRouting();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
-    endpoints.MapHub<NotificationHub>("/hubs/notification");
+    endpoints.MapHub<NotificationHub>(Constants.SignalR.NotificationHub);
 });
 
-
+var notificationContext = app.Services.GetService<NotificationContext>();
+notificationContext!.EnsureSeedData();
 
 app.Run();
